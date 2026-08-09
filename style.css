@@ -497,13 +497,24 @@ main{
 .lightbox-frame.is-zoomed img{
   max-width:none;
   max-height:none;
-  transform: scale(2.2);
+  transform: scale(1.5);
 }
 
 .lightbox-hint{
   margin-top: 18px;
   font-size: 0.78rem;
   color: rgba(247,243,241,0.45);
+}
+
+#yt-player-wrap{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 @media (max-width: 520px){

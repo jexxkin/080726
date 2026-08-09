@@ -2,6 +2,55 @@
   "use strict";
 
   /* =========================================================
+     0. MÚSICA DE FUNDO (baixinho, só toca depois do clique
+     em "testar senha", que conta como interação do usuário)
+  ========================================================= */
+  var YT_VIDEO_ID = "_1jM2DRA1T0";
+  var YT_VOLUME = 10; // 0-100
+  var ytPlayer = null;
+  var ytReady = false;
+  var wantsMusic = false;
+
+  function loadYouTubeAPI() {
+    var tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(tag);
+  }
+
+  window.onYouTubeIframeAPIReady = function () {
+    ytPlayer = new YT.Player("yt-player", {
+      height: "2",
+      width: "2",
+      videoId: YT_VIDEO_ID,
+      playerVars: {
+        autoplay: 0,
+        controls: 0,
+        disablekb: 1,
+        modestbranding: 1,
+        loop: 1,
+        playlist: YT_VIDEO_ID
+      },
+      events: {
+        onReady: function (e) {
+          ytReady = true;
+          e.target.setVolume(YT_VOLUME);
+          if (wantsMusic) e.target.playVideo();
+        }
+      }
+    });
+  };
+
+  function startBackgroundMusic() {
+    wantsMusic = true;
+    if (ytReady && ytPlayer && typeof ytPlayer.playVideo === "function") {
+      ytPlayer.setVolume(YT_VOLUME);
+      ytPlayer.playVideo();
+    }
+  }
+
+  loadYouTubeAPI();
+
+  /* =========================================================
      1. COMBINATION LOCK
      Code = data de namoro em DDMMYY -> 08 07 26
   ========================================================= */
@@ -74,6 +123,7 @@
       statusEl.textContent = "é essa.";
       statusEl.classList.remove("is-wrong");
       statusEl.classList.add("is-right");
+      startBackgroundMusic();
       unlock();
     } else {
       statusEl.textContent = "não é essa data ainda.";
