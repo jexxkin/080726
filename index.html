@@ -26,6 +26,7 @@
     </div>
 
     <p class="lock-hint">gira os tambores até a nossa data</p>
+    <button class="lock-btn" id="lock-btn" type="button">testar senha</button>
     <p class="lock-status" id="lock-status">&nbsp;</p>
   </div>
 </div>
@@ -37,7 +38,8 @@
     <p class="brand">Navir &amp; Trixie</p>
     <nav class="tabs" role="tablist" aria-label="Seções">
       <button class="tab-btn is-active" data-tab="inicio" role="tab" aria-selected="true">Início</button>
-      <button class="tab-btn" data-tab="pensamentos" role="tab" aria-selected="false">pensamentos</button>
+      <button class="tab-btn" data-tab="pensamentos" role="tab" aria-selected="false">datas importantes</button>
+      <button class="tab-btn" data-tab="sentimentos" role="tab" aria-selected="false">explorar sentimentos do Navir</button>
     </nav>
   </header>
 
@@ -67,15 +69,6 @@
         </p>
       </div>
 
-      <div class="gallery">
-        <figure class="polaroid rotate-a">
-          <img src="images/carta-1.jpg" alt="Carta escrita à mão, página 1">
-        </figure>
-        <figure class="polaroid rotate-b">
-          <img src="images/carta-2.jpg" alt="Carta escrita à mão, página 2">
-        </figure>
-      </div>
-
       <div class="dates">
         <div class="date-card">
           <p class="date-label">o namoro</p>
@@ -93,7 +86,34 @@
 
     </section>
 
+    <!-- ---------- TAB: EXPLORAR SENTIMENTOS DO NAVIR ---------- -->
+    <section class="tab-panel" id="tab-sentimentos" role="tabpanel" hidden>
+
+      <div class="msg-block">
+        <p class="msg-text small">a carta, do jeito que foi escrita. clica pra ver de perto.</p>
+      </div>
+
+      <div class="gallery">
+        <figure class="polaroid rotate-a">
+          <img src="images/carta-1.jpg" alt="Carta escrita à mão, página 1" class="zoomable" data-full="images/carta-1.jpg">
+        </figure>
+        <figure class="polaroid rotate-b">
+          <img src="images/carta-2.jpg" alt="Carta escrita à mão, página 2" class="zoomable" data-full="images/carta-2.jpg">
+        </figure>
+      </div>
+
+    </section>
+
   </main>
+
+  <!-- ---------- LIGHTBOX ---------- -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Fechar">&times;</button>
+    <div class="lightbox-frame" id="lightbox-frame">
+      <img id="lightbox-img" src="" alt="">
+    </div>
+    <p class="lightbox-hint">clique na imagem para dar zoom</p>
+  </div>
 
   <footer class="footer">
     <p>feito com cuidado, pra você guardar.</p>

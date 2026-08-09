@@ -12,6 +12,8 @@
   var statusEl = document.getElementById("lock-status");
   var lockScreen = document.getElementById("lock-screen");
   var siteEl = document.getElementById("site");
+  var lockBtn = document.getElementById("lock-btn");
+  var lockBodyEl = document.querySelector(".lock-body");
 
   function buildReels() {
     for (var i = 0; i < 6; i++) {
@@ -61,16 +63,30 @@
     var v = (parseInt(digits[idx], 10) + dir + 10) % 10;
     digits[idx] = String(v);
     document.getElementById("digit-" + idx).textContent = digits[idx];
-    checkCode();
+    // limpa qualquer feedback de tentativa anterior enquanto a pessoa ajusta os tambores
+    statusEl.textContent = "\u00A0";
+    statusEl.classList.remove("is-wrong", "is-right");
   }
 
-  function checkCode() {
+  function testCode() {
     var match = digits.every(function (d, i) { return d === CODE[i]; });
-    if (match) unlock();
+    if (match) {
+      statusEl.textContent = "é essa.";
+      statusEl.classList.remove("is-wrong");
+      statusEl.classList.add("is-right");
+      unlock();
+    } else {
+      statusEl.textContent = "não é essa data ainda.";
+      statusEl.classList.remove("is-right");
+      statusEl.classList.add("is-wrong");
+      lockBodyEl.classList.remove("is-shaking");
+      // força reflow pra animação poder tocar de novo em tentativas seguidas
+      void lockBodyEl.offsetWidth;
+      lockBodyEl.classList.add("is-shaking");
+    }
   }
 
   function unlock() {
-    statusEl.textContent = "aberto.";
     lockScreen.classList.add("unlocking");
     setTimeout(function () {
       lockScreen.hidden = true;
@@ -78,6 +94,8 @@
       startCounters();
     }, 650);
   }
+
+  lockBtn.addEventListener("click", testCode);
 
   buildReels();
 
@@ -166,4 +184,49 @@
     renderCounters();
     setInterval(renderCounters, 30000);
   }
+
+  // roda desde já, mesmo antes de abrir o cadeado, pra garantir que os
+  // números já estejam prontos assim que o site aparecer
+  startCounters();
+
+  /* =========================================================
+     4. LIGHTBOX (zoom nas imagens da carta)
+  ========================================================= */
+  var lightbox = document.getElementById("lightbox");
+  var lightboxImg = document.getElementById("lightbox-img");
+  var lightboxFrame = document.getElementById("lightbox-frame");
+  var lightboxClose = document.getElementById("lightbox-close");
+
+  function openLightbox(src, alt) {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || "";
+    lightboxFrame.classList.remove("is-zoomed");
+    lightbox.hidden = false;
+  }
+
+  function closeLightbox() {
+    lightbox.hidden = true;
+    lightboxFrame.classList.remove("is-zoomed");
+    lightboxImg.src = "";
+  }
+
+  document.querySelectorAll("img.zoomable").forEach(function (img) {
+    img.addEventListener("click", function () {
+      openLightbox(img.getAttribute("data-full") || img.src, img.alt);
+    });
+  });
+
+  lightboxFrame.addEventListener("click", function () {
+    lightboxFrame.classList.toggle("is-zoomed");
+  });
+
+  lightboxClose.addEventListener("click", closeLightbox);
+
+  lightbox.addEventListener("click", function (e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !lightbox.hidden) closeLightbox();
+  });
 })();
