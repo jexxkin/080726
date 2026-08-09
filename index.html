@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navir &amp; Trixie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Sora:wght@300;400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===================== LOCK SCREEN ===================== -->
+<div id="lock-screen">
+  <div class="lock-wrap">
+    <p class="lock-mark">N&nbsp;&middot;&nbsp;T</p>
+
+    <div class="lock-device" aria-label="Cadeado de combinação">
+      <div class="lock-loop"></div>
+      <div class="lock-body">
+        <div class="reels" id="reels">
+          <!-- 6 digit reels injected by JS, with static "/" separators between groups of 2 -->
+        </div>
+      </div>
+    </div>
+
+    <p class="lock-hint">gira os tambores até a nossa data</p>
+    <p class="lock-status" id="lock-status">&nbsp;</p>
+  </div>
+</div>
+
+<!-- ===================== MAIN SITE ===================== -->
+<div id="site" hidden>
+
+  <header class="topbar">
+    <p class="brand">Navir &amp; Trixie</p>
+    <nav class="tabs" role="tablist" aria-label="Seções">
+      <button class="tab-btn is-active" data-tab="inicio" role="tab" aria-selected="true">Início</button>
+      <button class="tab-btn" data-tab="pensamentos" role="tab" aria-selected="false">pensamentos</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ---------- TAB: INÍCIO ---------- -->
+    <section class="tab-panel is-active" id="tab-inicio" role="tabpanel">
+      <div class="hero">
+        <p class="eyebrow">está aberto.</p>
+        <h1 class="hero-title">a gente, desde então.</h1>
+        <div class="counter-hero" id="counter-namoro-hero">
+          <span class="counter-num" id="cn-hero-days">0</span>
+          <span class="counter-label">dias juntos</span>
+        </div>
+        <p class="hero-sub" id="cn-hero-sub">calculando...</p>
+        <p class="hero-since">namorando desde 08 de julho de 2026</p>
+      </div>
+    </section>
+
+    <!-- ---------- TAB: PENSAMENTOS ---------- -->
+    <section class="tab-panel" id="tab-pensamentos" role="tabpanel" hidden>
+
+      <div class="msg-block">
+        <p class="msg-text">
+          Oi Trixie, aqui é o Navir. Sei que a gente é ruim com datas, então eu criei essa aba
+          pra gente não esquecer de momentos importantes. Você se lembra de algum?
+        </p>
+      </div>
+
+      <div class="gallery">
+        <figure class="polaroid rotate-a">
+          <img src="images/carta-1.jpg" alt="Carta escrita à mão, página 1">
+        </figure>
+        <figure class="polaroid rotate-b">
+          <img src="images/carta-2.jpg" alt="Carta escrita à mão, página 2">
+        </figure>
+      </div>
+
+      <div class="dates">
+        <div class="date-card">
+          <p class="date-label">o namoro</p>
+          <p class="date-value">08 / 07 / 2026</p>
+          <p class="date-elapsed" id="elapsed-namoro">calculando...</p>
+        </div>
+        <div class="date-card">
+          <p class="date-label">primeira interação, na DM</p>
+          <p class="date-value">29 / 06 / 2026</p>
+          <p class="date-elapsed" id="elapsed-dm">calculando...</p>
+        </div>
+      </div>
+
+      <p class="signed">Navir</p>
+
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>feito com cuidado, pra você guardar.</p>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
